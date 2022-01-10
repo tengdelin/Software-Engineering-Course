@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+  <meta charset="utf-8"/>
+  <title>收盘价走势图</title>
+  <!-- 引入刚刚下载的 ECharts 文件 -->
+  <link rel="stylesheet" href="layui/css/layui.css">
+  <script src="js/echarts.js"></script>
+  <script src="js/jquery-3.6.0.js"></script>
+  <style>
+    body {
+      background-color: beige;
+    }
+  </style>
+</head>
+<body>
+<!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+<div id="main" style="width: 100%;height: 900px"></div>
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var myChart = echarts.init(document.getElementById('main'));
+
+
+
+  $.get("/shoupanjiadata", function (data) {
+    myChart.setOption(
+            (option = {
+              title: {
+                text: '收盘价分布图',
+                left: '1%'
+              },
+              tooltip: {
+                trigger: 'axis'
+              },
+              grid: {
+                left: '5%',
+                right: '15%',
+                bottom: '10%'
+              },
+              xAxis: {
+                data: data[0]
+              },
+              yAxis: {},
+              toolbox: {
+                right: 10,
+                feature: {
+                  dataZoom: {
+                    yAxisIndex: 'none'
+                  },
+                  restore: {},
+                  saveAsImage: {}
+                }
+              },
+              dataZoom: [
+                {
+                  startValue: '1999-11-10'
+                },
+                {
+                  type: 'inside'
+                }
+              ],
+              visualMap: {
+                top: 50,
+                right: 10,
+                pieces: [
+                  {
+                    gt: 0,
+                    lte: 5,
+                    color: '#93CE07'
+                  },
+                  {
+                    gt: 5,
+                    lte: 10,
+                    color: '#FBDB0F'
+                  },
+                  {
+                    gt: 10,
+                    lte: 15,
+                    color: '#FC7D02'
+                  },
+                  {
+                    gt: 15,
+                    lte: 20,
+                    color: '#FD0100'
+                  },
+                  {
+                    gt: 20,
+                    lte: 30,
+                    color: '#AA069F'
+                  },
+                  {
+                    gt: 30,
+                    color: '#AC3B2A'
+                  }
+                ],
+                outOfRange: {
+                  color: '#999'
+                }
+              },
+              series: {
+                name: '收盘价分布',
+                type: 'line',
+                data: data[1],
+                markLine: {
+                  silent: true,
+                  lineStyle: {
+                    color: '#333'
+                  },
+                  data: [
+                    {
+                      yAxis: 5
+                    },
+                    {
+                      yAxis: 10
+                    },
+                    {
+                      yAxis: 15
+                    },
+                    {
+                      yAxis: 20
+                    },
+                    {
+                      yAxis: 30
+                    }
+                  ]
+                }
+              }
+            })
+    );
+  });
+
+
+</script>
+</body>
+</html>

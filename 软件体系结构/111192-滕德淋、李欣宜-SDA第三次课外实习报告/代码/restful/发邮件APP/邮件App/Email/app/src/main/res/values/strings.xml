@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">小滕邮件</string>
+    <string name="tdl" translatable="false">功能介绍</string>
+    <string name="info" translatable="false">
+        发送邮件（可批量）
+        验证邮件
+    </string>
+
+    <string name="send" translatable="false">
+        注意：批量发送使用逗号隔开
+    </string>
+
+
+</resources>

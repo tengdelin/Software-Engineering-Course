@@ -1,0 +1,2 @@
+#!/bin/bash
+newman run 接口测试.postman_collection.json -e 接口测试环境.postman_environment.json  -d 接口测试数据驱动.csv

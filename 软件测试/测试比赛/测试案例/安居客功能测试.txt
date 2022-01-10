@@ -1,0 +1,78 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+
+public class Example {
+
+	// Mooctest Selenium Example
+
+	// <!> Check if selenium-standalone.jar is added to build path.
+
+	public static void test(WebDriver driver) throws InterruptedException {
+		// TODO Test script
+		// eg:driver.get("https://www.baidu.com/")
+		// eg:driver.findElement(By.id("wd"));
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get("https://nj.zu.anjuke.com/");
+		driver.findElement(By.cssSelector("body > div.topbar > div > ul > li:nth-child(4) > a")).click();
+		
+		driver.findElement(By.cssSelector("#switch_apf_id_5")).click();
+//		Actions action=new Actions(driver);
+//		action.moveToElement(driver.findElement(By.cssSelector("#switch_apf_id_5"))).perform();
+		driver.findElement(By.cssSelector("#city_list > dl:nth-child(2) > dd > a:nth-child(4)")).click();// 南京
+		driver.findElement(By.cssSelector("body > div.nav.header-center.clearfix > ul > li:nth-child(2) > a")).click();// 地铁找房
+		driver.findElement(By.cssSelector(
+				"body > div.w1180 > div.div-border.items-list > div:nth-child(1) > span.elems-l > div > a:nth-child(4)"))
+				.click();// 二号线
+		driver.findElement(By.cssSelector(
+				"body > div.w1180 > div.div-border.items-list > div:nth-child(1) > span.elems-l > div > div > a:nth-child(20)"))
+				.click();// 马群
+		driver.findElement(By.cssSelector("#from-price")).sendKeys("5000");// 值
+		driver.findElement(By.cssSelector("#to-price")).sendKeys("8000");
+		driver.findElement(By.cssSelector("#pricerange_search")).click();
+		driver.findElement(By.cssSelector(
+				"body > div.w1180 > div.div-border.items-list > div:nth-child(4) > span.elems-l > a:nth-child(2)"))
+				.click();// 整租
+		driver.findElement(By.cssSelector("#condhouseage_txt_id")).click();// 选择框
+		driver.findElement(By.cssSelector("#condmenu > ul > li:nth-child(2) > ul > li:nth-child(2) > a")).click();
+		driver.findElement(By.cssSelector("#search-rent")).sendKeys("经天路");
+		driver.findElement(By.cssSelector("#search-button")).click();
+		driver.findElement(By.cssSelector("#list-content > div.zu-tab > a:nth-child(2)")).click();// 视频看房
+		driver.findElement(By.cssSelector("#list-content > div.zu-sort > div > a:nth-child(3)")).click();// 租金
+		driver.findElement(By.cssSelector("#list-content > div.zu-sort > div > a:nth-child(4)")).click();// 最新
+//		driver.findElement(By.cssSelector("#list-content > div:nth-child(3)")).click();// 选择一个
+		List<WebElement> Element = driver.findElements(By.cssSelector(".zu-itemmod"));
+		Element.get(0).click();
+//		System.out.println(Element.get(0).getText());
+		Set<String> handle = driver.getWindowHandles();
+		for (String h : handle) {
+			driver.switchTo().window(h);
+			System.out.println(driver.getTitle());
+			if (driver.getTitle().equals("【多图】万达茂御湖仕家三期，仙林湖租房，栖霞生命科技园 万达茂 金中金小 双地铁好楼层 拎包入住，栖霞租房-南京58安居客")) {
+				System.out.println("hello");
+				break;
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		// Run main function to test your script.
+		WebDriver driver = new ChromeDriver();
+		try {
+			test(driver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			driver.quit();
+		}
+	}
+
+}

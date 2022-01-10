@@ -1,0 +1,188 @@
+[
+	{
+		"region": "安徽",
+		"sh_count": 46,
+		"sz_count": 57,
+		"count": 9
+	},
+	{
+		"region": "内蒙古",
+		"sh_count": 16,
+		"sz_count": 10,
+		"count": 3
+	},
+	{
+		"region": "宁夏",
+		"sh_count": 5,
+		"sz_count": 8,
+		"count": 1
+	},
+	{
+		"region": "青海",
+		"sh_count": 8,
+		"sz_count": 4,
+		"count": 1
+	},
+	{
+		"region": "福建",
+		"sh_count": 53,
+		"sz_count": 81,
+		"count": 0
+	},
+	{
+		"region": "山东",
+		"sh_count": 74,
+		"sz_count": 126,
+		"count": 4
+	},
+	{
+		"region": "山西",
+		"sh_count": 18,
+		"sz_count": 18,
+		"count": 8
+	},
+	{
+		"region": "陕西",
+		"sh_count": 24,
+		"sz_count": 27,
+		"count": 1
+	},
+	{
+		"region": "上海",
+		"sh_count": 185,
+		"sz_count": 78,
+		"count": 0
+	},
+	{
+		"region": "四川",
+		"sh_count": 44,
+		"sz_count": 80,
+		"count": 5
+	},
+	{
+		"region": "天津",
+		"sh_count": 25,
+		"sz_count": 24,
+		"count": 1
+	},
+	{
+		"region": "北京",
+		"sh_count": 138,
+		"sz_count": 177,
+		"count": 0
+	},
+	{
+		"region": "西藏",
+		"sh_count": 9,
+		"sz_count": 8,
+		"count": 0
+	},
+	{
+		"region": "新疆",
+		"sh_count": 29,
+		"sz_count": 25,
+		"count": 0
+	},
+	{
+		"region": "云南",
+		"sh_count": 15,
+		"sz_count": 20,
+		"count": 0
+	},
+	{
+		"region": "浙江",
+		"sh_count": 193,
+		"sz_count": 239,
+		"count": 4
+	},
+	{
+		"region": "甘肃",
+		"sh_count": 18,
+		"sz_count": 17,
+		"count": 5
+	},
+	{
+		"region": "重庆",
+		"sh_count": 26,
+		"sz_count": 24,
+		"count": 2
+	},
+	{
+		"region": "广东",
+		"sh_count": 83,
+		"sz_count": 506,
+		"count": 3
+	},
+	{
+		"region": "广西",
+		"sh_count": 17,
+		"sz_count": 20,
+		"count": 3
+	},
+	{
+		"region": "贵州",
+		"sh_count": 14,
+		"sz_count": 15,
+		"count": 2
+	},
+	{
+		"region": "海南",
+		"sh_count": 9,
+		"sz_count": 20,
+		"count": 2
+	},
+	{
+		"region": "黑龙江",
+		"sh_count": 27,
+		"sz_count": 11,
+		"count": 0
+	},
+	{
+		"region": "河北",
+		"sh_count": 26,
+		"sz_count": 34,
+		"count": 5
+	},
+	{
+		"region": "河南",
+		"sh_count": 31,
+		"sz_count": 49,
+		"count": 12
+	},
+	{
+		"region": "江苏",
+		"sh_count": 176,
+		"sz_count": 226,
+		"count": 3
+	},
+	{
+		"region": "湖北",
+		"sh_count": 41,
+		"sz_count": 61,
+		"count": 23
+	},
+	{
+		"region": "湖南",
+		"sh_count": 33,
+		"sz_count": 73,
+		"count": 4
+	},
+	{
+		"region": "吉林",
+		"sh_count": 20,
+		"sz_count": 24,
+		"count": 0
+	},
+	{
+		"region": "江西",
+		"sh_count": 17,
+		"sz_count": 24,
+		"count": 4
+	},
+	{
+		"region": "辽宁",
+		"sh_count": 34,
+		"sz_count": 42,
+		"count": 0
+	}
+]

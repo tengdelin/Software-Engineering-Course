@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cool.tdl.echarts.mapper.StockMapper">
+    <select id="selectAllStock" resultType="Stock" >
+        select *
+        from stock
+    </select>
+
+    <select id="selectAllshiyinlv" resultType="Stock" parameterType="Float">
+        select shiyinlv
+        from stock
+        where shiyinlv <![CDATA[ <= ]]> #{maxnum}
+          and shiyinlv <![CDATA[ > ]]> #{minnum}
+    </select>
+
+    <select id="selectAlljunjia" resultType="Stock">
+        select time, junjia
+        from stock
+    </select>
+
+    <select id="selectAllshoupanjia" resultType="Stock">
+        select time, shoupanjia
+        from stock
+    </select>
+</mapper>

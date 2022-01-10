@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+  <meta charset="utf-8"/>
+  <title>均价走势图</title>
+  <!-- 引入刚刚下载的 ECharts 文件 -->
+  <link rel="stylesheet" href="layui/css/layui.css">
+  <script src="js/echarts.js"></script>
+  <script src="js/jquery-3.6.0.js"></script>
+  <style>
+    body {
+      background-color: beige;
+    }
+  </style>
+</head>
+<body>
+<!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+<div id="main" style="width: 100%;height: 900px"></div>
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var myChart = echarts.init(document.getElementById('main'));
+
+
+
+  $.getJSON("/junjiadata", function (data) {
+    myChart.setOption({
+        xAxis: {
+          type: 'category',
+          data: data[0]
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: data[1],
+            type: 'line'
+          }
+        ]
+    });
+  })
+
+
+</script>
+</body>
+</html>

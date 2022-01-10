@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jenkins持续集成服务器</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1><a id="Jenkins_0"></a>一、Jenkins持续集成服务器</h1>
+<h2><a id="1Jenkins_1"></a>1、Jenkins安装</h2>
+<ol>
+<li>安装JDK</li>
+</ol>
+<pre><code class="prism language-powershell">yum install java<span class="token operator">-</span>1<span class="token punctuation">.</span>8<span class="token punctuation">.</span>0<span class="token operator">-</span>openjdk<span class="token operator">*</span> <span class="token operator">-</span>y
+</code></pre>
+<ol start="2">
+<li>获取jenkins安装包<br>
+官网下载</li>
+<li>把安装包上传到服务器，进行安装</li>
+</ol>
+<pre><code class="prism language-powershell">rpm <span class="token operator">-</span>ivh jenkins<span class="token operator">-</span>2<span class="token punctuation">.</span>190<span class="token punctuation">.</span>3<span class="token operator">-</span>1<span class="token punctuation">.</span>1<span class="token punctuation">.</span>noarch<span class="token punctuation">.</span>rpm
+</code></pre>
+<ol start="4">
+<li>修改Jenkins配置</li>
+</ol>
+<pre><code class="prism language-powershell">vi <span class="token operator">/</span>etc<span class="token operator">/</span>sysconfig<span class="token operator">/</span>jenkins
+JENKINS_USER=“root” 
+JENKINS_PORT=“8888”
+</code></pre>
+<ol start="5">
+<li>启动Jenkins</li>
+</ol>
+<pre><code class="prism language-powershell">systemctl <span class="token function">start</span> jenkins
+</code></pre>
+<ol start="6">
+<li>
+<p>打开浏览器访问<br>
+<img src="https://img-blog.csdnimg.cn/2213669d852945dabbff87fe9f8ffc04.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+</li>
+<li>
+<p>获取并输入admin账户密码<br>
+<img src="https://img-blog.csdnimg.cn/c64e5dcd74534c0d85cda26bad326a19.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+</li>
+<li>
+<p>跳过插件安装</p>
+</li>
+<li>
+<p>添加一个管理员账户，并进入Jenkins后台<br>
+<img src="https://img-blog.csdnimg.cn/2cdee64dba824fc8bfd885d5da6d0879.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/e695490dc36a41db85006f480bfed7c4.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+开始使用Jenkins 。</p>
+</li>
+</ol>
+<h2><a id="2Jenkins_34"></a>2、Jenkins插件管理</h2>
+<p>Jenkins本身不提供很多功能，我们可以通过使用插件来满足我们的使用。例如从Gitlab拉取代码，使用Maven构建项目等功能需要依靠插件完成。接下来演示如何下载插件。</p>
+<p>修改Jenkins插件下载地址</p>
+<p>Jenkins国外官方插件地址下载速度非常慢，所以可以修改为国内插件地址： Jenkins-&gt;Manage Jenkins-&gt;Manage Plugins，点击Available</p>
+<p>这样做是为了把Jenkins官方的插件列表下载到本地，接着修改地址文件，替换为国内插件地址。</p>
+<pre><code class="prism language-powershell">/<span class="token operator">/</span>换插件下载源
+cd <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>jenkins<span class="token operator">/</span>updates
+sed <span class="token operator">-</span>i <span class="token string">'s/http:\/\/updates.jenkinsci.org\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g'</span> default<span class="token punctuation">.</span>json &amp;&amp; sed <span class="token operator">-</span>i <span class="token string">'s/http:\/\/www.google.com/https:\/\/www.baidu.com/g'</span> default<span class="token punctuation">.</span>json
+</code></pre>
+<p>最后，Manage Plugins点击Advanced，把Update Site改为国内插件下载地址 <a href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json">https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</a><br>
+<img src="https://img-blog.csdnimg.cn/2f613e8a1631479298e1cdcbfb4e96ec.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p>Sumbit后，重启Jenkins。</p>
+<h2><a id="3Jenkins_53"></a>3、Jenkins用户权限管理</h2>
+<p>我们可以利用Role-based Authorization Strategy 插件来管理Jenkins用户权限。<br>
+安装Role-based Authorization Strategy插件：<br>
+<img src="https://img-blog.csdnimg.cn/7ce7e316f882452a94eb653f730ccb3b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/7262d9370bcb4dd787b08180ec66e798.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/1824c6e2a93b43a385a0deedfb3e0e96.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/60f27f3ff96c48f3b1e2492c20608db7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/2cc0395c6dfd4112959b090e14287017.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+Global roles（全局角色）：管理员等高级用户可以创建基于全局的角色<br>
+Project roles（项目角色）：针对某个或者某些项目的角色<br>
+Slave roles（奴隶角色）：节点相关的权限<br>
+给用户分配角色：<br>
+创建两个用户账号，并对其分配角色：<br>
+<img src="https://img-blog.csdnimg.cn/9e88c98bae54447ea2c8b2358df77908.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/3a45514cd5184c3da1d83221d891f42e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/bcb602c6fc854766b123dce3f968fc9a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/1319ac8704ab457bab73e0eb9a4da804.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/9fd9b0b898014d30955284ba40b8883e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h2><a id="4Jenkins_71"></a>4、Jenkins凭证管理</h2>
+<p>凭据可以用来存储需要密文保护的数据库密码、Gitlab密码信息、Docker私有仓库密码等，以便Jenkins可以和这些第三方的应用进行交互。<br>
+<strong>安装Credentials Binding插件</strong><br>
+要在Jenkins使用凭证管理功能，需要安装Credentials Binding插件<br>
+<img src="https://img-blog.csdnimg.cn/87ba1b8789864da1ba7316b392478095.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/0b5ef8b0e128438087fb2646d2afb33d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+可以添加的凭证有5种：<br>
+Username with password：用户名和密码<br>
+SSH Username with private key： 使用SSH用户和密钥<br>
+Secret ﬁle：需要保密的文本文件，使用时Jenkins会将文件复制到一个临时目录中，再将文件路径设置到一个变量中，等构建结束后，所复制的Secret ﬁle就会被删除。<br>
+Secret text：需要保存的一个加密的文本串，如钉钉机器人或Github的api token<br>
+Certiﬁcate：通过上传证书文件的方式<br>
+<img src="https://img-blog.csdnimg.cn/ed17ec816a3a46948a102cdaf6694a32.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+安装Git插件进行拉去代码：<br>
+<img src="https://img-blog.csdnimg.cn/7228bf6cd1a640ccb4f9b3303f597ee2.png" alt="在这里插入图片描述"><br>
+<strong>CentOS7上安装Git工具：</strong><br>
+yum install git -y 安装<br>
+git --version 安装后查看版本<br>
+<strong>创建用户名和密码凭证：</strong><br>
+<img src="https://img-blog.csdnimg.cn/7f04dda5b67c46bc88f5d7e1c698ac12.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/e47895ffada94cd48b5eb2db6496417b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/108f38e124714e51979a26defc7cacc1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/a4bf11e5753a4c4eb2b61625c1b96b80.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<strong>SSH密钥类型凭证：</strong><br>
+1）使用root用户生成公钥和私钥 ssh-keygen -t rsa<br>
+在/root/.ssh/目录保存了公钥和私钥<br>
+id_rsa：私钥文件<br>
+id_rsa.pub：公钥文件<br>
+2）把生成的公钥放在Gitlab中<br>
+以root账户登录-&gt;点击头像-&gt;Settings-&gt;SSH Keys<br>
+复制刚才id_rsa.pub文件的内容到这里，点击"Add Key"<br>
+<img src="https://img-blog.csdnimg.cn/03f456b2735946eda3a58ce54e24d173.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+3）在Jenkins中添加凭证，配置私钥<br>
+<img src="https://img-blog.csdnimg.cn/8190ed2821fa4eafb810eded74887c6c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_15,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+4）测试凭证是否可用<br>
+新建"test02"项目-&gt;源码管理-&gt;Git，这次要使用Gitlab的SSH连接，并且选择SSH凭证<br>
+同样尝试构建项目，如果代码可以正常拉取，代表凭证配置成功！<br>
+<img src="https://img-blog.csdnimg.cn/d3473c23fc10435fb3cd4f976db7477d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h2><a id="5Maven_109"></a>5、Maven安装和配置</h2>
+<p>在Jenkins集成服务器上，我们需要安装Maven来编译和打包项目。安装Maven，先上传Maven软件到服务器。</p>
+<pre><code class="prism language-powershell">tar <span class="token operator">-</span>xzf apache<span class="token operator">-</span>maven<span class="token operator">-</span>3<span class="token punctuation">.</span>6<span class="token punctuation">.</span>2<span class="token operator">-</span>bin<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz <span class="token comment">#解压</span>
+
+mkdir <span class="token operator">-</span>p <span class="token operator">/</span>opt<span class="token operator">/</span>maven <span class="token comment"># 创建目录</span>
+
+<span class="token function">mv</span> apache<span class="token operator">-</span>maven<span class="token operator">-</span>3<span class="token punctuation">.</span>6<span class="token punctuation">.</span>2/<span class="token operator">*</span> <span class="token operator">/</span>opt<span class="token operator">/</span>maven <span class="token comment"># 移动文件</span>
+
+<span class="token comment">#**配置环境变量**</span>
+vi <span class="token operator">/</span>etc<span class="token operator">/</span>proﬁle
+export JAVA_HOME=<span class="token operator">/</span>usr<span class="token operator">/</span>lib<span class="token operator">/</span>jvm<span class="token operator">/</span>java<span class="token operator">-</span>1<span class="token punctuation">.</span>8<span class="token punctuation">.</span>0<span class="token operator">-</span>openjdk
+export MAVEN_HOME=<span class="token operator">/</span>opt<span class="token operator">/</span>maven
+export PATH=<span class="token variable">$PATH</span>:<span class="token variable">$JAVA_HOME</span><span class="token operator">/</span>bin:<span class="token variable">$MAVEN_HOME</span><span class="token operator">/</span>bin
+
+source <span class="token operator">/</span>etc<span class="token operator">/</span>proﬁle <span class="token comment">#配置生效</span>
+mvn <span class="token operator">-</span>v <span class="token comment">#查找Maven版本</span>
+</code></pre>
+<p><strong>Jenkins关联JDK和Maven</strong></p>
+<ul>
+<li>全局工具配置</li>
+<li>添加Jenkins全局变量<br>
+JAVA_HOME<br>
+M2_HOME<br>
+PATH+EXTRA</li>
+<li>修改Maven的settings.xml</li>
+</ul>
+<pre><code class="prism language-powershell">mkdir <span class="token operator">/</span>root<span class="token operator">/</span>repo <span class="token comment"># 创建本地仓库目录</span>
+
+vi <span class="token operator">/</span>opt<span class="token operator">/</span>maven<span class="token operator">/</span>conf<span class="token operator">/</span>settings<span class="token punctuation">.</span>xml
+
+<span class="token comment"># 本地仓库改为：/root/repo/</span>
+
+<span class="token comment">#添加阿里云私服地址：</span>
+ &lt;mirror&gt;
+      &lt;id&gt;alimaven&lt;<span class="token operator">/</span>id&gt;
+      &lt;mirrorOf&gt;central&lt;<span class="token operator">/</span>mirrorOf&gt;
+      &lt;name&gt;aliyun maven&lt;<span class="token operator">/</span>name&gt;
+      &lt;url&gt;http:<span class="token operator">/</span><span class="token operator">/</span>maven<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com<span class="token operator">/</span>nexus<span class="token operator">/</span>content<span class="token operator">/</span>groups<span class="token operator">/</span>public<span class="token operator">/</span>&lt;<span class="token operator">/</span>url&gt;
+&lt;<span class="token operator">/</span>mirror&gt;
+</code></pre>
+<ul>
+<li>测试Maven是否配置成功<img src="https://img-blog.csdnimg.cn/62efe5c154ec4a95bb6f9e990c5bbc4e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+在Jenkins里输入 mvn clean package<br>
+<img src="https://img-blog.csdnimg.cn/d5de37f4989b46dc8140771cd8875f8c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/316019ec67b5426d8ed3a20376dc0037.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+可以在服务器中Jenkins的工作目录下找到该项目的war包。</li>
+</ul>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+Bilibili.py:	这个文件是一个类
+UI_Test.py:	这个文件主要是进行测试控制的
+code.png:	这个是验证码破解的时候截的图
+url：是中途自动化测试爬虫下来的视频网址，没有什么用
+
+要运行该程序，需要提前安装好：
+tkinter
+Selenium
+numpy
+等依赖库

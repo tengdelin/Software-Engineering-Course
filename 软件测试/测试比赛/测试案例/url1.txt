@@ -1,0 +1,2 @@
+http:chromedriver.storage.googleapis.com/index.html?path=2.6
+http://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar

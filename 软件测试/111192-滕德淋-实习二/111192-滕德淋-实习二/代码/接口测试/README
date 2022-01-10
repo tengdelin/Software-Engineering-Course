@@ -1,0 +1,7 @@
+接口测试.postman_collection.json:	是接口测试编写的脚本和测试集
+接口测试环境.postman_environment.json:	是接口测试需要的环境变量，里面有测试时需要的接口key值
+接口测试数据驱动.csv：	是测试用例的数据驱动
+start_test：终端运行可以直接进行测试，但是得在Linux系统下面才行
+如果是其他系统，运行：newman run 接口测试.postman_collection.json -e 接口测试环境.postman_environment.json  -d 接口测试数据驱动.csv
+
+注意运行前需要有Newman测试环境。

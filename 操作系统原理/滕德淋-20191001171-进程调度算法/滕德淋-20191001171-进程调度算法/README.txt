@@ -1,0 +1,3 @@
+Release文件夹内是可执行文件
+main.cpp是程序代码
+test.txt是进程数据读入文件

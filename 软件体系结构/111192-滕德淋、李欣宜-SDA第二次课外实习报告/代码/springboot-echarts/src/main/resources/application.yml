@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://47.103.142.24:3306/northwind?serverTimeZone=UTC
+    username: northwind
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  type-aliases-package: cool.tdl.echarts.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml

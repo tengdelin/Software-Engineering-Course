@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+	<meta charset="UTF-8">
+	<title>武汉房源查找系统</title>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+	<div class="page">
+		<div class="inner_c">
+			<!-- *****************page0******************** -->
+			<div class="logo">
+				<img src="images/qq/title2_1.png" alt="">
+			</div>
+			<div class="skin1">
+				<img src="images/qq/skin1.png" alt="">
+			</div>
+			<a href="index.jsp">
+				<div class="skin2">
+					<img src="images/qq/skin.png" alt="">
+				</div>
+			</a>
+			<!-- *****************page1******************** -->
+			<div class="clock_stage">
+				<div class="clock">
+					<img src="images/qq/cug1.png" alt="">
+				</div>
+			</div>
+
+			<div class="number47">
+				<img src="images/qq/cug.png" alt="">
+			</div>
+
+			<!-- *****************page2******************** -->
+			<div class="page2h">
+				<p>中国地质大学（武汉）</p>
+			</div>
+			<!-- *****************page3******************** -->
+			<div class="page3h">
+				<p>软件工程</p>
+			</div>
+
+		</div> <!-- inner_c -->
+	</div>
+	<div class="circles">
+		<b class="c"></b>
+		<b></b>
+		<b></b>
+		<b></b>
+	</div>
+
+	<div class="qiu" id='qiu1'></div>
+	<div class="qiu" id='qiu2'></div>
+	<div class="qiu" id='qiu3'></div>
+
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="js/velocity.min.js"></script>
+	<script type="text/javascript" src="js/donghua.js"></script>
+
+	<script type="text/javascript">
+		// 当前的页面，虽然没有页面的概念
+		var page = 0;  //0、1、2、3
+		// 函数节流
+		var lock = true;
+
+		enter[0]();
+
+		$(document).mousewheel(function (event, delta) {
+			// 节流
+			if (!lock) return;
+			// 备份老page
+			var oldpage = page;
+			// 改变page的值，滚轮下滚，delta是-1，所以是-=
+			page -= delta;
+			if (page < 0) page = 0;
+			if (page > 3) page = 0;
+			// 节流
+			lock = false;
+
+			$(".circles b").eq(page).addClass("c").siblings().removeClass("c");
+
+			if (oldpage != page) {
+				exit[oldpage]();
+				enter[page]();
+			}
+		});
+	</script>
+</body>
+
+</html>

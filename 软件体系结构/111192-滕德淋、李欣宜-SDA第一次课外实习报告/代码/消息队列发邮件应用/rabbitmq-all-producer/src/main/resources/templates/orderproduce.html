@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>生产者页面</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="layui/layui.js"></script>
+    <style>
+        body {
+            background-color: beige;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-container">
+    <form class="layui-form" th:action="@{/send}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="email" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发送消息条数</label>
+            <div class="layui-input-block">
+                <select name="num" lay-verify="required">
+                    <option value="1">1</option>
+                    <option value="10">10</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">发送内容</label>
+            <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="layui-container">
+    <button class="layui-btn layui-btn-radius layui-btn-normal" onclick="reflush()">消息缓存</button>
+</div>
+
+<div class="layui-container">
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>发送邮箱</th>
+            <th>发送内容</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+
+    function reflush() {
+        $.post({
+            url: "/reflush",
+            success: function (data) {
+                var html = "";
+                for (var i = 0; i < data[0].length; i++) {
+                    html += "<tr>" +
+                        "<th>" + data[0][i] + "</th>" +
+                        "<th>" + data[1][i] + "</th>" +
+                        "</tr>"
+                }
+                $("#tbody").html(html)
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

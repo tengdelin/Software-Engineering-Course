@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <style>
+        body {
+            background-color: beige;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -50px 0 0 -50px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div>
+    <a th:href="@{/orderproduce}">
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal">发送消息</button>
+    </a>
+    <br>
+    <br>
+    <br>
+    <a th:href="@{/sendttl}">
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal">测试TTL</button>
+    </a>
+
+</div>
+</body>
+</html>

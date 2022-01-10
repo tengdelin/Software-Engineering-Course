@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <style>
+        body {
+            background-color: beige;
+        }
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            margin: -50px 0 0 -50px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div>
+    <a th:href="@{/demoV1}">
+        <button type="button" class="layui-btn layui-btn-radius">版本1.0</button>
+    </a>
+    <br>
+    <br>
+    <br>
+    <a th:href="@{/demoV2}">
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal">版本2.0</button>
+    </a>
+
+</div>
+</body>
+</html>

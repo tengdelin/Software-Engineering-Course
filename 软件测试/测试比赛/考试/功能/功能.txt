@@ -1,0 +1,177 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+
+public class Example {
+
+	// Mooctest Selenium Example
+
+	// <!> Check if selenium-standalone.jar is added to build path.
+
+	public static void test(WebDriver driver) throws InterruptedException {
+		// TODO Test script
+		// eg:driver.get("https://www.baidu.com/")
+		// eg:driver.findElement(By.id("wd"));
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get("https://www.douyin.com/");
+		driver.findElement(By.cssSelector("#login-guide > i")).click();// 关闭弹窗
+		driver.findElement(By.cssSelector("div")).click();// 切换播放
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div._161467dd88ebd09e4bdde965d497e16c-scss > div > div > div > div.swiper-container.swiper-container-initialized.swiper-container-vertical.swiper-container-autoheight.cf66e969dfb8e3e98298eaa4fbffed08-scss.container > div > div.swiper-slide.efdac201e599ede3484e970a6cbd9b76-scss.swiper-slide-active > div._344d64e1e8f9519151a9d9b713c105f5-scss > div > div._6b30df93879834f73e6edc1289c8a3cb-scss.playerContainer.a2f7d80ebe5c71e43f85b4def618d62a-scss > div._721fe39b93f5d24f13df807c5d5f2833-scss.slider-video > div > div.videoContainer.xgplayer-container-inactive"))
+				.click();
+		driver.findElement(By.cssSelector(".xg-switch")).click();// 自动播放
+		driver.findElement(By.cssSelector(".xg-volume")).click();// 关闭音乐
+		driver.findElement(By.cssSelector("._27e7f8072ba960669c6413224c633899-scss")).click();// 登录按钮
+		Thread.sleep(10000);// 手动登录
+		driver.findElement(By.xpath(
+				"//*[@id=\"root\"]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[1]/div/div[2]/div[3]/div[2]/div[3]"))
+				.click();// 点击评论
+
+		driver.findElement(By.xpath(
+				"//*[@id=\"root\"]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div[1]/div[3]/div/div/div[2]/div/span[2]"))
+				.click();// 点击唤醒表情
+		driver.findElement(By.xpath(
+				"//*[@id=\"root\"]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div[1]/div[3]/div/div/div[3]/div[1]/div/span[17]"))
+				.click();// 呲牙
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div._161467dd88ebd09e4bdde965d497e16c-scss > div > div > div > div.swiper-container.swiper-container-initialized.swiper-container-vertical.swiper-container-autoheight.cf66e969dfb8e3e98298eaa4fbffed08-scss.container > div > div.swiper-slide.efdac201e599ede3484e970a6cbd9b76-scss.swiper-slide-active > div._344d64e1e8f9519151a9d9b713c105f5-scss > div > div.fedc0635517631086a25c96119ea1f7d-scss > div.e31971b6316614b4babb2289686bd28e-scss > div.c94217b49db9168d7907290fb9b58a75-scss > div > div > div._3fc7b84407d92fee9b3525bd6207ecc6-scss > div > div > div.DraftEditor-editorContainer > div > div > div > div"))
+				.sendKeys("精彩");
+		driver.findElement(By.xpath(
+				"//*[@id=\"root\"]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div[1]/div[3]/div/div/div[2]/div/span[3]"))
+				.click();// 发送评论
+		driver.findElement(By.xpath(
+				"//*[@id=\"root\"]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[1]/div/div[2]/div[3]/div[1]/div/div/div[2]"))
+				.click();// 下一个视
+
+		WebElement Ele = driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div"));
+		List<WebElement> Element = Ele.findElements(By.tagName("a"));
+		Element.get(5).click();
+
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[9]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[10]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[11]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[12]/a")).click();
+
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[13]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[14]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[15]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[16]/a")).click();
+
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/div[2]/div[2]/div/div[1]/div/div/div[1]/a")).click();
+
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div._494bc1c6f4fa1450fb0b5f9811c4db08-scss > div.a503bb2ac66ba9ccb5f2277ad1f58c0a-scss > ul > li:nth-child(1) > div > a.caa4fd3df2607e91340989a2e41628d8-scss.a074d7a61356015feb31633ad4c45f49-scss.b388acfeaeef33f0122af9c4f71a93c9-scss > div > div._1a451682eeb2d4df81bf8e1ada549729-scss._825ee6a2309eb4a4d9f707ef61be8629-scss"))
+				.click();// 选择一个视频
+
+		Set<String> handle1 = driver.getWindowHandles();
+		for (String h : handle1) {
+			driver.switchTo().window(h);
+			if (driver.getTitle().equals(" #开学第一课  创意#自我介绍 这样的老师你喜欢吗？我认为喜欢老师，才 - 抖音")) {
+				break;
+			}
+		}
+
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div > div.leftContainer._20bc24e2255076f4dbc27d9fe1a241f3-scss > div:nth-child(1) > div.f8f92fbaa6a9978696cbc0d0e2f862ae-scss > div > div.e0855af4151de070355c4d56e74b5c5e-scss > div.videoContainer.xgplayer-container-inactive > div._0fee1caf6d7a169c22411c438d2a2fe7-scss > div"))
+				.click();
+
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div > div.leftContainer._20bc24e2255076f4dbc27d9fe1a241f3-scss > div:nth-child(1) > div.f8f92fbaa6a9978696cbc0d0e2f862ae-scss > div > div.e0855af4151de070355c4d56e74b5c5e-scss > div.videoContainer.xgplayer-container-inactive > div.videoWrap.xgplayer_autohide.xgplayer.xgplayer-pc.xgplayer-playing.init-complete.xgplayer-pause > xg-controls > xg-inner-controls > xg-right-grid > xg-icon.xgplayer-autoplay-setting > div > div > button"))
+				.click();// 自动切换
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div > div._7a161db40dc91a5e9612ebc02b3c05b2-scss > div > div._5098848e0b1b64cff0029deee2cdf48d-scss > div:nth-child(1) > a > div > img"))
+				.click();
+		Set<String> handle2 = driver.getWindowHandles();
+		for (String h : handle2) {
+			driver.switchTo().window(h);
+			if (driver.getTitle().equals("悟空的主页 - 抖音")) {
+				break;
+			}
+		}
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div > div._290cf15d030cac8ae38a7b3f8189ba36-scss > div.e6f3c9aceb6c59ff2df1cef17c3959f3-scss > div._674345dd1598d1b6ddedefce4cc93189-scss > button"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div._2a8558639e6fca67dc8406296920bd21-scss > div > header > div._171c431d2f07bedd7c6f4a5735ace648-scss > a"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div._2e1d83c3e628de59d28036fa441a8076-scss > div > header > div._411b8dc7f447faa01d70f5c6f9ddeb04-scss > div > div._87a84b1388679ce580d03adaff5566c3-scss > div > div:nth-child(2) > div > form > input._28bcf0c81eecec324dc834fd9da6bc14-scss._995df5bec116ef593426dbf2a410fa26-scss"))
+				.sendKeys("央视");
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div._2e1d83c3e628de59d28036fa441a8076-scss > div > header > div._411b8dc7f447faa01d70f5c6f9ddeb04-scss > div > div._87a84b1388679ce580d03adaff5566c3-scss > div > div:nth-child(2) > div > button"))
+				.click();// 点击搜索
+		Set<String> handle3 = driver.getWindowHandles();
+		for (String h : handle3) {
+			driver.switchTo().window(h);
+			if (driver.getTitle().equals("发现更多精彩视频 - 抖音视频搜索")) {
+				break;
+			}
+		}
+		driver.findElement(By.cssSelector(
+				"#root > div > div:nth-child(2) > div > div.cdfb2696b192e707e529d93274fe5752-scss > div._72f7d11f84881fa1d76aed351818d9ff-scss > div > div:nth-child(2) > span:nth-child(2)"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"#root > div > div:nth-child(2) > div > div.cdfb2696b192e707e529d93274fe5752-scss > div._72f7d11f84881fa1d76aed351818d9ff-scss > div > div:nth-child(3) > span:nth-child(3)"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"#root > div > div:nth-child(2) > div > div.cdfb2696b192e707e529d93274fe5752-scss > div:nth-child(2) > ul > li:nth-child(3) > div > a.caa4fd3df2607e91340989a2e41628d8-scss.a074d7a61356015feb31633ad4c45f49-scss._9c976841beef15a22bcd1540d1e84c02-scss > p > span > span > span > span > span"))
+				.click();// 点击文本
+		Set<String> handle4 = driver.getWindowHandles();
+		for (String h : handle4) {
+			driver.switchTo().window(h);
+			if (driver.getTitle().equals(" 今天，每一个中国人都应该重读这段碑文！ - 抖音")) {
+				break;
+			}
+		}
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div > div._7a161db40dc91a5e9612ebc02b3c05b2-scss > div > div:nth-child(3) > ul > li:nth-child(2) > div > div._48cfb66a1b04cb2a1e4235afd583c75f-scss > h3 > a"))
+				.click();
+
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div._2a8558639e6fca67dc8406296920bd21-scss > div > header > div._171c431d2f07bedd7c6f4a5735ace648-scss > a"))
+				.click();
+
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div.a863cbaaffe537635d0f8cc2af289789-scss > div > div._07a8ddb322df9d05ae65f4b0526dc236-scss > div > div > div:nth-child(3) > a > div._2d15138f04d48739d647aedff79c0207-scss > svg"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div._161467dd88ebd09e4bdde965d497e16c-scss > div > div > div > div.swiper-container.swiper-container-initialized.swiper-container-vertical.swiper-container-autoheight.cf66e969dfb8e3e98298eaa4fbffed08-scss.container > div > div.swiper-slide.swiper-slide-active.efdac201e599ede3484e970a6cbd9b76-scss > div._344d64e1e8f9519151a9d9b713c105f5-scss > div > div._6b30df93879834f73e6edc1289c8a3cb-scss.playerContainer.a2f7d80ebe5c71e43f85b4def618d62a-scss > div._721fe39b93f5d24f13df807c5d5f2833-scss.slider-video > div > div.videoContainer.xgplayer-container-inactive > div.fc298bb699bde7f9f34051fdfab4d7cd-scss > div._89d303c2337944eb7f5b50363acff41e-scss.xgplayer-video-interaction-wrap > div._99231535484a2586b6929c71d67d059b-scss > a > div > img"))
+				.click();// 点击作者头像
+
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div._161467dd88ebd09e4bdde965d497e16c-scss > div > div > div > div.swiper-container.swiper-container-initialized.swiper-container-vertical.swiper-container-autoheight.cf66e969dfb8e3e98298eaa4fbffed08-scss.container > div > div.swiper-slide.swiper-slide-active.efdac201e599ede3484e970a6cbd9b76-scss > div._344d64e1e8f9519151a9d9b713c105f5-scss > div > div._6b30df93879834f73e6edc1289c8a3cb-scss.playerContainer.a2f7d80ebe5c71e43f85b4def618d62a-scss > div._721fe39b93f5d24f13df807c5d5f2833-scss.slider-video > div > div.videoContainer.xgplayer-container-inactive > div.videoWrap.swiperVideo.fb6689277bd29c06e3905f0be8df25c1-scss.replay.xgplayer_autohide.xgplayer.xgplayer-pc.xgplayer-playing.init-complete.xgplayer-enter-show.xgplayer-pause > xg-controls > xg-inner-controls > xg-right-grid > xg-icon.xgplayer-detail-entry > a > div.desc"))
+				.click();// 进入详情
+		Set<String> handle5 = driver.getWindowHandles();
+		for (String h : handle5) {
+			driver.switchTo().window(h);
+			if (driver.getTitle().equals("哈哈，宝宝懵圈的表情，此刻宝宝心里想着什么？#亲子时光 #爸爸带孩子  - 抖音")) {
+				break;
+			}
+		}
+
+		driver.findElement(By.cssSelector(
+				"#root > div.windows-os > div:nth-child(2) > div > div._7a161db40dc91a5e9612ebc02b3c05b2-scss > div > div._5098848e0b1b64cff0029deee2cdf48d-scss > div._1f21a9c584df70f258bd8e43d3e04e32-scss > button"))
+				.click();// 取消关注
+
+	}
+
+	public static void main(String[] args) {
+		// Run main function to test your script.
+		WebDriver driver = new ChromeDriver();
+		try {
+			test(driver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			driver.quit();
+		}
+	}
+
+}

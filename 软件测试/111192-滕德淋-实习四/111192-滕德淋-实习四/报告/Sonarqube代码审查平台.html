@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonarqube代码审查平台</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1><a id="SonaQube_0"></a>SonaQube代码审查平台</h1>
+<p>SonarQube是一个用于管理代码质量的开放平台，可以快速的定位代码中潜在的或者明显的错误。目前支持java,C#,C/C++,Python,PL/SQL,Cobol,JavaScrip,Groovy等二十几种编程语言的代码质量管理与检测。<br>
+<a href="https://www.sonarqube.org/">官网：https://www.sonarqube.org/</a></p>
+<h2><a id="SonarQube_3"></a>安装SonarQube</h2>
+<p>1）安装MySQL（会把一些代码审查的结果保存到数据库）<br>
+2）安装SonarQube<br>
+在MySQL创建sonar数据库</p>
+<pre><code class="prism language-powershell">create database sonar<span class="token punctuation">;</span>
+</code></pre>
+<p><a href="https://www.sonarqube.org/downloads/">下载sonar压缩包： https://www.sonarqube.org/downloads/</a><br>
+解压sonar，并设置权限</p>
+<pre><code class="prism language-powershell">yum install unzip
+unzip sonarqube<span class="token operator">-</span>6<span class="token punctuation">.</span>7<span class="token punctuation">.</span>4<span class="token punctuation">.</span>zip <span class="token comment">#解压</span>
+mkdir <span class="token operator">/</span>opt<span class="token operator">/</span>sonar <span class="token comment">#创建目录</span>
+<span class="token function">mv</span> sonarqube<span class="token operator">-</span>6<span class="token punctuation">.</span>7<span class="token punctuation">.</span>4/<span class="token operator">*</span> <span class="token operator">/</span>opt<span class="token operator">/</span>sonar <span class="token comment">#移动文件</span>
+
+useradd sonar <span class="token comment">#创建sonar用户，必须sonar用于启动，否则报错</span>
+chown <span class="token operator">-</span>R sonar<span class="token punctuation">.</span> <span class="token operator">/</span>opt<span class="token operator">/</span>sonar <span class="token comment">#更改sonar目录及文件权限修改sonar配置文件</span>
+
+vi  <span class="token operator">/</span>opt<span class="token operator">/</span>sonarqube<span class="token operator">-</span>6<span class="token punctuation">.</span>7<span class="token punctuation">.</span>4<span class="token operator">/</span>conf<span class="token operator">/</span>sonar<span class="token punctuation">.</span>properties
+内容如下：
+
+sonar<span class="token punctuation">.</span>jdbc<span class="token punctuation">.</span>username=root  sonar<span class="token punctuation">.</span>jdbc<span class="token punctuation">.</span>password=Root@123
+sonar<span class="token punctuation">.</span>jdbc<span class="token punctuation">.</span>url=jdbc:mysql:<span class="token operator">/</span><span class="token operator">/</span>localhost:3306<span class="token operator">/</span>sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConﬁgs= maxPerformance&amp;useSSL=false
+
+注意：sonar默认监听9000端口，如果9000端口被占用，需要更改。启动sonar
+
+cd <span class="token operator">/</span>opt<span class="token operator">/</span>sonarqube<span class="token operator">-</span>6<span class="token punctuation">.</span>7<span class="token punctuation">.</span>4
+
+su sonar <span class="token punctuation">.</span><span class="token operator">/</span>bin<span class="token operator">/</span>linux<span class="token operator">-</span>x86<span class="token operator">-</span>64<span class="token operator">/</span>sonar<span class="token punctuation">.</span>sh <span class="token function">start</span> 启动
+su sonar <span class="token punctuation">.</span><span class="token operator">/</span>bin<span class="token operator">/</span>linux<span class="token operator">-</span>x86<span class="token operator">-</span>64<span class="token operator">/</span>sonar<span class="token punctuation">.</span>sh status 查看状态
+su sonar <span class="token punctuation">.</span><span class="token operator">/</span>bin<span class="token operator">/</span>linux<span class="token operator">-</span>x86<span class="token operator">-</span>64<span class="token operator">/</span>sonar<span class="token punctuation">.</span>sh stop 停止
+
+tail <span class="token operator">-</span>f logs<span class="token operator">/</span>sonar<span class="token punctuation">.</span>logs 查看日志访问sonar http:<span class="token operator">/</span><span class="token operator">/</span>192<span class="token punctuation">.</span>168<span class="token punctuation">.</span>66<span class="token punctuation">.</span>101:9000
+
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/6e96d563f802495ab40170a03db5ff4e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+默认账户：admin/admin创建token<br>
+<img src="https://img-blog.csdnimg.cn/f07b4fc8d9f444a183d12c3af1cd807e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+bb8b6c53d9d921e101343cef0395243e6c1dc8a3<br>
+token要记下来后面要使用</p>
+<h2><a id="_45"></a>实现代码审查</h2>
+<p><img src="https://img-blog.csdnimg.cn/11833b89cc2342efbc7cdd2b2a57df70.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+安装SonarQube Scanner插件<br>
+Jenkins进行SonarQube配置<br>
+Manage Jenkins-&gt;Conﬁgure System-&gt;SonarQube servers<br>
+<img src="https://img-blog.csdnimg.cn/9ad0ad111cfe494e903fbc9f4149d6ba.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+Manage Jenkins-&gt;Global Tool Conﬁguration<br>
+<img src="https://img-blog.csdnimg.cn/06e3b5d457fd4a19b9729c6315c8d108.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+然后在Global Tool Configuration里点击新增SonarQube Scanner，点击install automatically，点击保存<br>
+然后在configure system里，点击SonaQube Servers，添加之前安装的sonarQube的地址，localhost:9000<br>
+添加SonarQube凭证，这里要填写之前保存的那个秘钥<br>
+<img src="https://img-blog.csdnimg.cn/0fdcf78b5ada48329da727fd6c9b683f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<strong>SonaQube关闭审查结果上传到SCM功能</strong><br>
+<img src="https://img-blog.csdnimg.cn/08c0b6c64c544fda954ee61e661e0a22.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<strong>在项目添加SonaQube代码审查（非流水线项目）</strong><br>
+在Jenkins中点击之前的freestyle项目 ---- 配置 ---- 可以看到之前写的构建shell，添加构建步骤<br>
+----Execute SonarQube Scanner----<br>
+Task to run：：scan<br>
+jdk：在Jenkins里配置过的jdk<br>
+Analysis properties内容为：</p>
+<pre><code class="prism language-powershell"><span class="token comment"># must be unique in a given SonarQube instance</span>
+sonar<span class="token punctuation">.</span>projectKey=web_demo
+<span class="token comment"># this is the name and version displayed in the SonarQube UI. Was mandatory prior to SonarQube 6.1.</span>
+sonar<span class="token punctuation">.</span>projectName=web_demo
+sonar<span class="token punctuation">.</span>projectVersion=1<span class="token punctuation">.</span>0
+<span class="token comment"># Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.</span>
+<span class="token comment"># This property is optional if sonar.modules is set.</span>
+<span class="token comment"># 扫描的路径</span>
+sonar<span class="token punctuation">.</span>sources=<span class="token punctuation">.</span>
+sonar<span class="token punctuation">.</span>exclusions=<span class="token operator">*</span>*<span class="token operator">/</span>test/<span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">,</span><span class="token operator">*</span>*<span class="token operator">/</span>target/<span class="token operator">*</span><span class="token operator">*</span>
+sonar<span class="token punctuation">.</span>java<span class="token punctuation">.</span>source=1<span class="token punctuation">.</span>8
+sonar<span class="token punctuation">.</span>java<span class="token punctuation">.</span>target=1<span class="token punctuation">.</span>8
+<span class="token comment"># Encoding of the source code. Default is default system encoding</span>
+sonar<span class="token punctuation">.</span>sourceEncoding=UTF<span class="token operator">-</span>8
+
+</code></pre>
+<p>在Jenkins里的freestyle项目点击构建，在项目里随便写个100/0，然后push，点击构建，在sonaQube里就能看到报错。</p>
+<p><strong>在项目添加SonaQube代码审查（流水线项目）</strong><br>
+1）IDEA项目根目录下，创建sonar-project.properties文件</p>
+<pre><code class="prism language-powershell"><span class="token comment"># must be unique in a given SonarQube instance</span>
+sonar<span class="token punctuation">.</span>projectKey=web_demo
+<span class="token comment"># this is the name and version displayed in the SonarQube UI. Was mandatory</span>
+prior to SonarQube 6<span class="token punctuation">.</span>1<span class="token punctuation">.</span>
+sonar<span class="token punctuation">.</span>projectName=web_demo
+sonar<span class="token punctuation">.</span>projectVersion=1<span class="token punctuation">.</span>0
+<span class="token comment"># Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.</span>
+<span class="token comment"># This property is optional if sonar.modules is set.</span>
+sonar<span class="token punctuation">.</span>sources=<span class="token punctuation">.</span>
+sonar<span class="token punctuation">.</span>exclusions=<span class="token operator">*</span>*<span class="token operator">/</span>test/<span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">,</span><span class="token operator">*</span>*<span class="token operator">/</span>target/<span class="token operator">*</span><span class="token operator">*</span>
+sonar<span class="token punctuation">.</span>java<span class="token punctuation">.</span>source=1<span class="token punctuation">.</span>8
+sonar<span class="token punctuation">.</span>java<span class="token punctuation">.</span>target=1<span class="token punctuation">.</span>8
+<span class="token comment"># Encoding of the source code. Default is default system encoding</span>
+sonar<span class="token punctuation">.</span>sourceEncoding=UTF<span class="token operator">-</span>8
+
+</code></pre>
+<p>2）在DEA修改Jenkinsﬁle，加入SonarQube代码审查阶段</p>
+<pre><code class="prism language-powershell">pipeline<span class="token punctuation">{</span>
+    agentanystages<span class="token punctuation">{</span>
+        stage<span class="token punctuation">(</span><span class="token string">'拉取代码'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            steps<span class="token punctuation">{</span>
+                checkout<span class="token punctuation">(</span><span class="token punctuation">[</span>
+                    <span class="token variable">$class</span>: <span class="token string">'GitSCM'</span><span class="token punctuation">,</span>
+                    branches: <span class="token punctuation">[</span> <span class="token punctuation">[</span>name: <span class="token string">'*/master'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    doGenerateSubmoduleConfigurations: false<span class="token punctuation">,</span>
+                    extensions: <span class="token punctuation">[</span>  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    submoduleCfg: <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    userRemoteConfigs: <span class="token punctuation">[</span>
+                        <span class="token punctuation">[</span>
+                            credentialsId: <span class="token string">'68f2087f-a034-4d39-a9ff-1f776dd3dfa8'</span><span class="token punctuation">,</span>
+                            url: <span class="token string">'git@192.168.66.100: itheima_group/web_demo.git'</span>
+                        <span class="token punctuation">]</span>
+                    <span class="token punctuation">]</span>
+                <span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>stage<span class="token punctuation">(</span><span class="token string">'编译构建'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            steps<span class="token punctuation">{</span>
+                shlabel: <span class="token string">''</span><span class="token punctuation">,</span>
+                script: <span class="token string">'mvncleanpackage'</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>stage<span class="token punctuation">(</span><span class="token string">'SonarQube代码审查'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            steps<span class="token punctuation">{</span>
+                script<span class="token punctuation">{</span>
+                    scannerHome=tool<span class="token string">'sonarqube-scanner'</span><span class="token comment">#tool代表要引入Jenkins的一些工具，'sonarqube-scanner'是之前我们自己起的名字#自由风格默认会找全局工具</span>
+                <span class="token punctuation">}</span>withSonarQubeEnv<span class="token punctuation">(</span><span class="token string">'sonarqube6.7.4'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token comment">#这个配置在系统配置里</span>
+                    sh<span class="token string">"${scannerHome}/bin/sonar-scanner"</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>stage<span class="token punctuation">(</span><span class="token string">'项目部署'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment">#代码审查都放到项目部署之前</span>
+            steps<span class="token punctuation">{</span>
+                deployadapters: <span class="token punctuation">[</span>
+                    tomcat8<span class="token punctuation">(</span>credentialsId: <span class="token string">'afc43e5e-4a4e-4de6-984fb1d5a254e434'</span><span class="token punctuation">,</span>
+                    path: <span class="token string">''</span><span class="token punctuation">,</span>
+                    url: <span class="token string">'http: //192.168.66.102: 8080'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                contextPath: null<span class="token punctuation">,</span>
+                war: <span class="token string">'target/*.war'</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+	post<span class="token punctuation">{</span>
+        always<span class="token punctuation">{</span>
+            emailext<span class="token punctuation">(</span>subject: <span class="token string">'构建通知：${ PROJECT_NAME}-Build#${ BUILD_NUMBER}-${BUILD_STATUS}!'</span><span class="token punctuation">,</span>
+            body: <span class="token string">'${FILE, path="email.html"}'</span><span class="token punctuation">,</span>
+            to: <span class="token string">'1357388630@qq.com'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<p>3）到SonarQube的UI界面查看审查结果<br>
+<img src="https://img-blog.csdnimg.cn/3219fcdfd7114046a751c84117b0e39e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+</div>
+</body>
+
+</html>

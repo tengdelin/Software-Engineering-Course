@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gitlab代码托管服务器</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1><a id="Gitlab_0"></a>一、Gitlab代码托管服务器</h1>
+<p>GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。</p>
+<p>GitLab和GitHub一样属于第三方基于Git开发的作品，免费且开源（基于MIT协议），与Github类似，可以注册用户，任意提交你的代码，添加SSHKey等等。不同的是，GitLab是可以部署到自己的服务器上，数据库等一切信息都掌握在自己手上，适合团队内部协作开发，你总不可能把团队内部的智慧总放在别人的服务器上吧？简单来说可把GitLab看作个人版的GitHub。</p>
+<h2><a id="1Gitlab_4"></a>1、Gitlab安装</h2>
+<ol>
+<li>安装相关依赖</li>
+</ol>
+<pre><code class="prism language-shell">yum -y <span class="token function">install</span> policycoreutils openssh-server openssh-clients postﬁx
+</code></pre>
+<ol start="2">
+<li>启动ssh服务&amp;设置为开机启动</li>
+</ol>
+<pre><code class="prism language-shell">systemctl <span class="token builtin class-name">enable</span> sshd <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> systemctl start sshd
+</code></pre>
+<ol start="3">
+<li>设置postﬁx开机自启，并启动，postﬁx支持gitlab发信功能</li>
+</ol>
+<pre><code class="prism language-powershell">systemctl enable postfix &amp;&amp; systemctl <span class="token function">start</span> postfix
+</code></pre>
+<ol start="4">
+<li>开放ssh以及http服务，然后重新加载防火墙列表</li>
+</ol>
+<pre><code class="prism language-powershell">firewall<span class="token operator">-</span>cmd <span class="token operator">--</span><span class="token function">add-service</span>=ssh <span class="token operator">--</span>permanent 
+firewall<span class="token operator">-</span>cmd <span class="token operator">--</span><span class="token function">add-service</span>=http <span class="token operator">--</span>permanent 
+firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>reload
+</code></pre>
+<ol start="5">
+<li>下载gitlab包，并且安装在线下载安装包：</li>
+</ol>
+<pre><code class="prism language-powershell">https:<span class="token operator">/</span><span class="token operator">/</span>mirrors<span class="token punctuation">.</span>tuna<span class="token punctuation">.</span>tsinghua<span class="token punctuation">.</span>edu<span class="token punctuation">.</span>cn<span class="token operator">/</span>gitlab<span class="token operator">-</span>ce<span class="token operator">/</span>yum<span class="token operator">/</span>el6<span class="token operator">/</span>gitlab<span class="token operator">-</span>ce<span class="token operator">-</span>12<span class="token punctuation">.</span>4<span class="token punctuation">.</span>2<span class="token operator">-</span>ce<span class="token punctuation">.</span>0<span class="token punctuation">.</span>el6<span class="token punctuation">.</span>x86_64<span class="token punctuation">.</span>rpm
+安装
+yum install policycoreutils<span class="token operator">-</span>python
+rpm <span class="token operator">-</span>i gitlab<span class="token operator">-</span>ce<span class="token operator">-</span>12<span class="token punctuation">.</span>4<span class="token punctuation">.</span>2<span class="token operator">-</span>ce<span class="token punctuation">.</span>0<span class="token punctuation">.</span>el6<span class="token punctuation">.</span>x86_64<span class="token punctuation">.</span>rpm
+</code></pre>
+<ol start="6">
+<li>修改gitlab配置</li>
+</ol>
+<pre><code class="prism language-powershell">vi <span class="token operator">/</span>etc<span class="token operator">/</span>gitlab<span class="token operator">/</span>gitlab<span class="token punctuation">.</span>rb
+修改gitlab访问地址和端口，默认为80，我们改为82 
+external_url ‘http:<span class="token operator">/</span><span class="token operator">/</span>192<span class="token punctuation">.</span>168<span class="token punctuation">.</span>66<span class="token punctuation">.</span>100:82’
+nginx<span class="token punctuation">[</span>‘listen_port’<span class="token punctuation">]</span> = 82
+</code></pre>
+<ol start="7">
+<li>重载配置及启动gitlab</li>
+</ol>
+<pre><code class="prism language-powershell">gitlab<span class="token operator">-</span>ctl reconfigure
+gitlab<span class="token operator">-</span>ctl restart
+</code></pre>
+<ol start="8">
+<li>把端口添加到防火墙</li>
+</ol>
+<pre><code class="prism language-powershell">firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>zone=public <span class="token operator">--</span><span class="token function">add-port</span>=82<span class="token operator">/</span>tcp <span class="token operator">--</span>permanent
+firewall<span class="token operator">-</span>cmd <span class="token operator">--</span>reload
+</code></pre>
+<p>启动成功后，看到以下修改管理员root密码的页面，修改密码后，然后登录即可</p>
+<h2><a id="2Gitlab_49"></a>2、Gitlab初始化</h2>
+<p><img src="https://img-blog.csdnimg.cn/6986d88fd30a4bd3b5a7b719f45e8a56.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/ff16bc91ba2648c3a92e1f93c1619f4f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/23326df99f9c4a42b8bf940d3c233466.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/9a94ec480098479f896568da721138a7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_16,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h2><a id="3Gitlab_55"></a>3、Gitlab添加组、创建用户、创建项目</h2>
+<p><strong>1）创建组</strong><br>
+使用管理员 root 创建组，一个组里面可以有多个项目分支，可以将开发者添加到组里面进行设置权限，不同的组就是公司不同的开发项目或者服务模块，不同的组添加不同的开发者即可实现对开发者设置权限的管理。<br>
+<img src="https://img-blog.csdnimg.cn/7b669e9da89346eb8dd9a7c7ae0dc6b8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/5245f6ff501347e19303f469269ca808.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p><strong>2）创建用户</strong><br>
+创建用户的时候，可以选择Regular或Admin类型。<br>
+<img src="https://img-blog.csdnimg.cn/0fc711438d3542fbb6281c41b988e15b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/18009caf2be54fa3824f1850d0b287d3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/3f84034e5ac24dfb99e23a7f112071fc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+增加用户后需要立即修改密码。<br>
+<img src="https://img-blog.csdnimg.cn/d9e0ff9f72ab4f7987b0434eac86726c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<strong>3）将用户添加到组中</strong><br>
+选择某个用户组，进行Members管理组的成员<br>
+<img src="https://img-blog.csdnimg.cn/fed83fecfb4f446e85c22e9f61637adf.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/d47b8b72d6694b0cba099b16ba179f98.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+Gitlab用户在组里面有5种不同权限：</p>
+<ul>
+<li>Guest：可以创建issue、发表评论，不能读写版本库</li>
+<li>Reporter：可以克隆代码，不能提交，QA、PM可以赋予这个权限</li>
+<li>Developer：可以克隆代码、开发、提交、push，普通开发可以赋予这个权限</li>
+<li>Maintainer：可以创建项目、添加tag、保护分支、添加项目成员、编辑项目，核心开发可以赋予这个权限</li>
+<li>Owner：可以设置项目访问权限 - Visibility Level、删除项目、迁移项目、管理组成员，开发组组长可以赋予这个权限</li>
+</ul>
+<p><strong>4）在用户组中创建项目</strong><br>
+以刚才创建的新用户身份登录到Gitlab，然后在用户组中创建新的项目<br>
+<img src="https://img-blog.csdnimg.cn/060e5deefd2f458b9fec23ce23e219bf.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/f38efbf9d38e46dc943e0dfc1a4bf20f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+<h2><a id="4Gitlab_83"></a>4、源码上传到Gitlab仓库</h2>
+<p>使用idea上传代码：<br>
+<img src="https://img-blog.csdnimg.cn/0e2ec9702bdf450a88e7bfe990f45de4.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/d4f20bce5aef47f5b0b01e463a1983c4.png" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/f744993f1b754ec087e0c636a8c8d68f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/a7e33c40d6284ca88974c49dd9672b12.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/a637969a593d4f65b9efc7f18038a198.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/0fa19d56b41a4d29b0af40c10c90e8dd.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/455fa331c0f048b088e5ffd301d11fb9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/b3b77cc498e24a5992999f0ad5ad4412.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+</div>
+</body>
+
+</html>

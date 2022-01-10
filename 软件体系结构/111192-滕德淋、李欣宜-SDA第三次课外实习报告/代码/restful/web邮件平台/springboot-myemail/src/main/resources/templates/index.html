@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>小滕邮件</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #but {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            margin: -50px 0 0 -50px;
+        }
+
+        video {
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+            min-width: 100%;
+            min-height: 100%;
+            height: auto;
+            width: auto;
+            /*加滤镜*/
+            /*filter: blur(15px); //背景模糊设置 */
+            /*-webkit-filter: grayscale(100%);*/
+            /*filter:grayscale(100%); //背景灰度设置*/
+            z-index: -11
+        }
+
+        source {
+            min-width: 100%;
+            min-height: 100%;
+            height: auto;
+            width: auto;
+        }
+
+        p {
+            width: 100%;
+            text-align: center;
+            font-size: 40px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <ul class="layui-nav" lay-bar="disabled">
+        <li class="layui-nav-item" shiro:guest="">
+            <a th:href="@{/toLogin}">登录</a>
+        </li>
+        <li class="layui-nav-item" shiro:guest="">
+            <a th:href="@{/toLogin}">注册</a>
+        </li>
+        <li class="layui-nav-item" shiro:hasPermission="guest">
+            <a th:href="@{/user/openVIP}">开通VIP</a>
+        </li>
+        <li class="layui-nav-item">
+            <a th:href="@{/user/toguestPage}">开始发邮件</a>
+        </li>
+        <li class="layui-nav-item">
+            <a th:href="@{/user/tovipPage}">我是VIP</a>
+        </li>
+        <li class="layui-nav-item" lay-unselect="">
+            <a href="javascript:;">
+                <img src="images/favicon.jpg" class="layui-nav-img">
+                <span th:text="${username}"></span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd>
+                    <a href="javascript:;">个人信息</a>
+                </dd>
+                <dd>
+                    <a href="javascript:;">修改信息</a>
+                </dd>
+                <hr>
+                <dd style="text-align: center;">
+                    <a th:href="@{/logOut}">退出</a>
+                </dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<div id="mid">
+    <video autoplay loop muted>
+        <source src="images/movie1.mp4" type="video/mp4"/>
+        Your browser does not support the video tag.
+    </video>
+</div>
+<div id="but">
+    <div shiro:hasPermission="guest">
+        <a th:href="@{/user/toguestPage}">
+            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">游客发邮件</button>
+        </a>
+    </div>
+    <br>
+    <br>
+    <div shiro:hasPermission="vip">
+        <a th:href="@{/user/tovipPage}">
+            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">VIP发邮件</button>
+        </a>
+    </div>
+    <div shiro:guest="">
+        <a th:href="@{/toLogin}">
+            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">进入小滕邮件</button>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

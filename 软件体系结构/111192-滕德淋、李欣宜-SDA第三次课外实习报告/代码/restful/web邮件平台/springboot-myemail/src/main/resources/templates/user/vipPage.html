@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>VIP邮箱</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #msgForm {
+            width: 500px;
+            height: 600px;
+            position: absolute;
+            left: 40%;
+            top: 30%;
+            margin: -50px 0 0 -50px;
+        }
+
+        video {
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+            min-width: 100%;
+            min-height: 100%;
+            height: auto;
+            width: auto;
+            /*加滤镜*/
+            /*filter: blur(15px); //背景模糊设置 */
+            /*-webkit-filter: grayscale(100%);*/
+            /*filter:grayscale(100%); //背景灰度设置*/
+            z-index: -11
+        }
+
+        source {
+            min-width: 100%;
+            min-height: 100%;
+            height: auto;
+            width: auto;
+        }
+
+        p {
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="mid">
+    <video autoplay loop muted>
+        <source src="../images/movie1.mp4" type="video/mp4"/>
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<div id="msgForm">
+    <form class="layui-form" th:action="@{user/vipSendEmail}" enctype="multipart/form-data" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>接收邮箱</b></label>
+            <div class="layui-input-block">
+                <input type="text" name="acount" required lay-verify="required" placeholder="请输入接收邮箱" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>邮件主题</b></label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入邮件标题" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label"><b>邮件内容</b></label>
+            <div class="layui-input-block">
+                <textarea name="content" placeholder="请输入邮件内容，支持html语法" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <p><span>附件1：</span><input type="file" name="file"/></p>
+        <p><span>附件2：</span><input type="file" name="file"/></p>
+        <p><span>附件3：</span><input type="file" name="file"/></p>
+        <p><span>附件4：</span><input type="file" name="file"/></p>
+        <p><span>附件5：</span><input type="file" name="file"/></p>
+        <a name="list-progress">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即发送</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </a>
+    </form>
+    <a th:href="@{/}"><button class="layui-btn layui-btn-primary">返回首页</button></a>
+    <span th:text="${msg}" style="color: red;font-size: 16px"></span>
+</div>
+
+</body>
+</html>

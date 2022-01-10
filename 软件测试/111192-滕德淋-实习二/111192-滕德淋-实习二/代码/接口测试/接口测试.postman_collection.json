@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "73ae6e0e-826f-4086-990e-123464d48166",
+		"name": "接口测试",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "二维码生成",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"二维码生成请求成功\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"二维码生成测试成功\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://apis.juhe.cn/qrcode/api?key={{key1}}&text={{text}}&el={{el}}&bgcolor={{bgcolor}}&fgcolor={{fgcolor}}&logo={{logo}}&w={{w}}&m={{m}}&lw={{lw}}&type={{type1}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"juhe",
+						"cn"
+					],
+					"path": [
+						"qrcode",
+						"api"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key1}}"
+						},
+						{
+							"key": "text",
+							"value": "{{text}}"
+						},
+						{
+							"key": "el",
+							"value": "{{el}}"
+						},
+						{
+							"key": "bgcolor",
+							"value": "{{bgcolor}}"
+						},
+						{
+							"key": "fgcolor",
+							"value": "{{fgcolor}}"
+						},
+						{
+							"key": "logo",
+							"value": "{{logo}}"
+						},
+						{
+							"key": "w",
+							"value": "{{w}}"
+						},
+						{
+							"key": "m",
+							"value": "{{m}}"
+						},
+						{
+							"key": "lw",
+							"value": "{{lw}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "头条新闻",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"头条新闻请求成功\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"头条新闻测试成功\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://v.juhe.cn/toutiao/index?type={{type2}}&page={{page1}}&page_size={{page_size}}&is_filter={{is_filter}}&key={{key2}}",
+					"protocol": "http",
+					"host": [
+						"v",
+						"juhe",
+						"cn"
+					],
+					"path": [
+						"toutiao",
+						"index"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{type2}}"
+						},
+						{
+							"key": "page",
+							"value": "{{page1}}"
+						},
+						{
+							"key": "page_size",
+							"value": "{{page_size}}"
+						},
+						{
+							"key": "is_filter",
+							"value": "{{is_filter}}"
+						},
+						{
+							"key": "key",
+							"value": "{{key2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "笑话大全",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"笑话大全请求成功\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"笑话大全测试成功\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://v.juhe.cn/joke/content/list.php?sort={{sort}}&page={{page2}}&pagesize={{pagesize}}&time={{time}}&key={{key3}}",
+					"protocol": "http",
+					"host": [
+						"v",
+						"juhe",
+						"cn"
+					],
+					"path": [
+						"joke",
+						"content",
+						"list.php"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "{{sort}}"
+						},
+						{
+							"key": "page",
+							"value": "{{page2}}"
+						},
+						{
+							"key": "pagesize",
+							"value": "{{pagesize}}"
+						},
+						{
+							"key": "time",
+							"value": "{{time}}"
+						},
+						{
+							"key": "key",
+							"value": "{{key3}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "天气预报",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"天气预报请求成功\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"天气预报测试成功\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"查询成功\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://apis.juhe.cn/simpleWeather/query?city={{city}}&key={{key4}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"juhe",
+						"cn"
+					],
+					"path": [
+						"simpleWeather",
+						"query"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "{{city}}"
+						},
+						{
+							"key": "key",
+							"value": "{{key4}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "驾照题库",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"驾照题库请求成功\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"驾照题库测试成功\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"ok\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://v.juhe.cn/jztk/query?subject={{subject}}&model={{model}}&testType={{testType}}&key={{key5}}",
+					"protocol": "http",
+					"host": [
+						"v",
+						"juhe",
+						"cn"
+					],
+					"path": [
+						"jztk",
+						"query"
+					],
+					"query": [
+						{
+							"key": "subject",
+							"value": "{{subject}}"
+						},
+						{
+							"key": "model",
+							"value": "{{model}}"
+						},
+						{
+							"key": "testType",
+							"value": "{{testType}}"
+						},
+						{
+							"key": "key",
+							"value": "{{key5}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

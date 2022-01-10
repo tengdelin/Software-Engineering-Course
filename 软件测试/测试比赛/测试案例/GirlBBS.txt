@@ -1,0 +1,109 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+
+public class Example {
+
+	// Mooctest Selenium Example
+
+	// <!> Check if selenium-standalone.jar is added to build path.
+
+	public static void test(WebDriver driver) throws InterruptedException {
+		// TODO Test script
+		// eg:driver.get("https://www.baidu.com/")
+		// eg:driver.findElement(By.id("wd"));
+
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get("http://114.215.176.95:60509/girl-bbs/index.jsp");
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > a > font"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > font > form > table > tbody > tr:nth-child(3) > td > a > font"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(3) > td:nth-child(2) > a > font"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(2) > td:nth-child(2) > input[type=text]"))
+				.sendKeys("hello10");
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(3) > td:nth-child(2) > input[type=password]"))
+				.sendKeys("123");
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(4) > td:nth-child(2) > input[type=password]"))
+				.sendKeys("123");
+		WebElement Elementdriver = driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(5) > td:nth-child(2) > select"));
+		Select select = new Select(Elementdriver);
+		select.selectByIndex(1);
+		driver.findElement(
+				By.xpath("/html/body/table[1]/tbody/tr/td/table/tbody/tr[2]/td/form/table/tbody/tr[6]/td[2]/input"))
+				.sendKeys("15884113649");
+		driver.findElement(
+				By.xpath("/html/body/table[1]/tbody/tr/td/table/tbody/tr[2]/td/form/table/tbody/tr[7]/td[2]/input"))
+				.sendKeys("1357388630@qq.com");
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(8) > td:nth-child(2) > input[type=submit]:nth-child(1)"))
+				.click();
+		driver.switchTo().alert().accept();
+		driver.findElement(By.cssSelector(
+				"body > center:nth-child(3) > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > center > a:nth-child(1) > font"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"body > center:nth-child(3) > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > center > a:nth-child(4) > font"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"body > center:nth-child(3) > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > center > a:nth-child(2) > font"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"body > center:nth-child(3) > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > center > a:nth-child(3) > font"))
+				.click();
+		driver.findElement(By.cssSelector("body > center:nth-child(3) > form > input[type=text]:nth-child(2)")).click();
+		driver.findElement(By.cssSelector("body > center:nth-child(3) > form > input[type=text]:nth-child(2)"))
+				.sendKeys("test");
+		driver.findElement(By.cssSelector("body > center:nth-child(3) > form > input[type=submit]:nth-child(3)"))
+				.click();
+		driver.findElement(By.cssSelector(
+				"body > center > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(9) > td:nth-child(1) > a"))
+				.click();
+		driver.navigate().back();
+		driver.findElement(By.cssSelector("body > center > center:nth-child(2) > a:nth-child(2)")).click();
+		driver.findElement(By.cssSelector("body > center:nth-child(3) > a:nth-child(2)")).click();
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(1) > td > input[type=text]"))
+				.clear();
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(1) > td > input[type=text]"))
+				.sendKeys("hello");
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(3) > td > textarea"))
+				.sendKeys("1111111111111111111111111");
+		driver.findElement(By.cssSelector(
+				"body > table:nth-child(4) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > form > table > tbody > tr:nth-child(4) > td > input[type=submit]"))
+				.click();
+		driver.findElement(By.cssSelector("body > center:nth-child(3) > a:nth-child(1)")).click();
+		// 手动点击
+		driver.switchTo().alert().accept();
+
+	}
+
+	public static void main(String[] args) {
+		// Run main function to test your script.
+		WebDriver driver = new ChromeDriver();
+		try {
+			test(driver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			driver.quit();
+		}
+	}
+
+}

@@ -1,0 +1,160 @@
+/*显示登录注册*/
+.info1 {
+    z-index: 999;
+    width: auto;
+    min-width: 6rem;
+    padding: .75rem 1.25rem;
+    margin-left: 1.25rem;
+    position: fixed;
+    top: 1rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    font-size: 14px;
+    color: #666;
+    box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
+}
+
+/*显示项目解释*/
+.info2 {
+    z-index: 999;
+    width: auto;
+    min-width: 10rem;
+    padding: .75rem 1.25rem;
+    margin-left: 1.25rem;
+    position: fixed;
+    top: 4rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    font-size: 14px;
+    color: #666;
+    box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
+}
+
+/*//提醒登录*/
+.info3 {
+    z-index: 999;
+    width: auto;
+    min-width: 10rem;
+    padding: .75rem 1.25rem;
+    margin-left: 40rem;
+    position: fixed;
+    top: 1rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    font-size: 14px;
+    color: #666;
+    box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
+}
+
+/*中心*/
+.info4 {
+    z-index: 999;
+    width: auto;
+    min-width: 12rem;
+    padding: .75rem 1.25rem;
+    margin-left: 600px;
+    position: fixed;
+    top: 1rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    font-size: 14px;
+    color: #666;
+    box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
+}
+
+/*左边*/
+.info5 {
+    z-index: 999;
+    width: auto;
+    height: auto;
+    min-width: 11.5rem;
+    /*min-height: 550px;*/
+    padding: .75rem 1.25rem;
+    margin-left: 1.25rem;
+    position: fixed;
+    top: 150px;
+    background-color: #fff;
+    border-radius: .25rem;
+    font-size: 14px;
+    color: #666;
+    box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
+}
+
+
+.login {
+    text-decoration: none;
+    color: #666666;
+}
+
+.cona {
+    text-decoration: none;
+}
+
+a:link {
+    color: black;
+}
+
+a:hover {
+    color: red;
+}
+
+.common-text {
+    height: 23px;
+    line-height: 23px;
+    padding: 2px 4px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.btn {
+    height: auto;
+    width: auto;
+    padding: 2px 4px;
+    background-color: #2a6496;
+    border-radius: 5px;
+}
+
+.black_overlay {
+    display: none; /* 此元素不会被显示*/
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001; /* z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。*/
+    -moz-opacity: 0.8;
+    opacity: .80; /* opacity 属性设置元素的不透明级别。*/
+    filter: alpha(opacity=88);
+    /* 所有浏览器都支持 opacity 属性。   注释：IE8 以及更早的版本支持替代的 filter 属性。例如：filter:Alpha(opacity=50)。*/
+}
+
+.white_content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0rem;
+    width: 97%;
+    height: 500px;
+    /*padding: 20px;*/
+    border: 3px solid skyblue;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+    text-align: center;
+}
+
+.white_content1 {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0rem;
+    width: 300%;
+    height: 500px;
+    /*padding: 20px;*/
+    border: 3px solid skyblue;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+}

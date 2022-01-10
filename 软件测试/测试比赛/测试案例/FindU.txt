@@ -1,0 +1,76 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+
+public class Example {
+
+	// Mooctest Selenium Example
+
+	// <!> Check if selenium-standalone.jar is added to build path.
+
+	public static void test(WebDriver driver) {
+		// TODO Test script
+		// eg:driver.get("https://www.baidu.com/")
+		// eg:driver.findElement(By.id("wd"));
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get("http://114.215.176.95:60505/FindU/html/index.jsp");
+		driver.findElement(By.xpath("/html/body/header/div[1]/div[2]/ul/li[1]/a[2]")).click();// 点击登录
+		driver.findElement(By.xpath("//*[@id=\"UserName\"]")).sendKeys("xhy1@qq.com");
+		driver.findElement(By.xpath("//*[@id=\"PassWord\"]")).sendKeys("123456");
+		driver.findElement(By.xpath("//*[@id=\"agileits-sign-in-page\"]/div/form/input[3]")).click();// 确定登录
+		driver.findElement(By.xpath("//*[@id=\"large-btns1_s0\"]/div/a")).click();
+
+		driver.findElement(By.xpath("//*[@id=\"Search\"]")).sendKeys(" ");
+		WebElement Elementdriver = driver.findElement(By.xpath("//*[@id=\"agileinfo_search\"]"));
+		Select select = new Select(Elementdriver);
+		select.selectByIndex(2);
+		driver.findElement(By.xpath("/html/body/header/div[2]/div/div[2]/form/button")).click();// 点击搜索
+		driver.findElement(By.xpath("/html/body/div[3]/div/div[1]/ul/li[1]/a")).click();
+
+		for (int i = 0; i < 18; i++) {
+			WebElement element = driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/ul"));
+			List<WebElement> Element = element.findElements(By.tagName("a"));
+			Element.get(i).click();
+		}
+		driver.findElement(By.xpath("//*[@id=\"profile-tab\"]/span")).click();//有图片点击
+		
+
+		driver.findElement(By.xpath("//*[@id=\"home-tab\"]")).click();
+		driver.findElement(By.xpath("//*[@id=\"viewcontrols\"]/a[1]/i")).click();
+		driver.findElement(By.xpath("//*[@id=\"container\"]/ul/a[1]/li/section[1]/h5")).click();
+		driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/div[3]/p/a")).click();
+		driver.findElement(By.xpath("/html/body/div[3]/div/div/form/textarea")).clear();
+		driver.findElement(By.xpath("/html/body/div[3]/div/div/form/textarea")).sendKeys("一张 2010 年申请办理的身份证");
+		driver.findElement(By.xpath("/html/body/div[3]/div/div/form/div[3]/input[1]")).sendKeys("13811112222");
+		driver.findElement(By.xpath("/html/body/div[3]/div/div/form/div[3]/input[2]")).click();
+		driver.findElement(By.xpath("/html/body/header/div[1]/div[2]/ul/li[1]/a")).click();
+		driver.findElement(By.xpath("/html/body/header/div[1]/div[2]/ul/li[1]/ul/li[1]/a")).click();
+
+		driver.findElement(By.xpath("/html/body/div[2]/ul/li[1]/a")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/ul/li[2]/a")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/ul/li[3]/a")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/ul/li[4]/a")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/ul/li[5]/a")).click();
+
+	}
+
+	public static void main(String[] args) {
+		// Run main function to test your script.
+		WebDriver driver = new ChromeDriver();
+		try {
+			test(driver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			driver.quit();
+		}
+	}
+
+}

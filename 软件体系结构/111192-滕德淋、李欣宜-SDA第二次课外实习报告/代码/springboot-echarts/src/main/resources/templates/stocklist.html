@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8"/>
+    <title>收盘价走势图</title>
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="js/echarts.js"></script>
+    <script src="js/jquery-3.6.0.js"></script>
+    <style>
+        body {
+            background-color: beige;
+        }
+    </style>
+</head>
+<body>
+<!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+<div class="layui-container">
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Time</th>
+            <th>市盈率</th>
+            <th>均价</th>
+            <th>收盘价</th>
+        </tr>
+        </thead>
+        <tbody id="main">
+
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $.get("/stocklistdata", function (data) {
+        var html = ""
+        for (var i = 0; i < data.length; i++) {
+            html +=
+                "        <tr>" +
+                "            <td>" + data[i].id + "</td>" +
+                "            <td>" + data[i].time + "</td>" +
+                "            <td>" + data[i].shiyinlv + "</td>" +
+                "            <td>" + data[i].junjia + "</td>" +
+                "            <td>" + data[i].shoupanjia + "</td>" +
+                "        </tr>"
+        }
+        $("#main").html(html)
+    });
+</script>
+</body>
+</html>

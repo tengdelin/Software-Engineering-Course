@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <style>
+        body {
+            background-color: beige;
+        }
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            margin: -50px 0 0 -50px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div>
+    <a th:href="@{/shiyinlv}">
+        <button type="button" class="layui-btn layui-btn-radius">市盈率图表</button>
+    </a>
+    <br>
+    <br>
+    <br>
+    <a th:href="@{/junjia}">
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal">均价走势图</button>
+    </a>
+    <br>
+    <br>
+    <br>
+    <a th:href="@{/shoupanjia}">
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-warm">收盘价分布图</button>
+    </a>
+    <br>
+    <br>
+    <br>
+    <a th:href="@{/stocklist}">
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-danger">数据查看</button>
+    </a>
+
+</div>
+</body>
+</html>

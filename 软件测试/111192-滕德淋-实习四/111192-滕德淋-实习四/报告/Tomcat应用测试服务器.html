@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomcat应用测试服务器</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1><a id="Tomcat_0"></a>Tomcat应用测试服务器</h1>
+<h2><a id="1Tomcat85_1"></a>1、安装Tomcat8.5</h2>
+<p>把Tomcat压缩包上传到web服务器</p>
+<pre><code class="prism language-powershell">yum install java<span class="token operator">-</span>1<span class="token punctuation">.</span>8<span class="token punctuation">.</span>0<span class="token operator">-</span>openjdk<span class="token operator">*</span> <span class="token operator">-</span>y <span class="token comment"># 安装JDK</span>
+
+tar <span class="token operator">-</span>xzf apache<span class="token operator">-</span>tomcat<span class="token operator">-</span>8<span class="token punctuation">.</span>5<span class="token punctuation">.</span>47<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz <span class="token comment">#解压</span>
+
+mkdir <span class="token operator">-</span>p <span class="token operator">/</span>opt<span class="token operator">/</span>tomcat <span class="token comment">#创建目录</span>
+
+<span class="token function">mv</span> <span class="token operator">/</span>root<span class="token operator">/</span>apache<span class="token operator">-</span>tomcat<span class="token operator">-</span>8<span class="token punctuation">.</span>5<span class="token punctuation">.</span>47/<span class="token operator">*</span> <span class="token operator">/</span>opt<span class="token operator">/</span>tomcat <span class="token comment">#移动文件</span>
+
+<span class="token operator">/</span>opt<span class="token operator">/</span>tomcat<span class="token operator">/</span>bin<span class="token operator">/</span>startup<span class="token punctuation">.</span>sh <span class="token comment">#启动tomcat</span>
+
+</code></pre>
+<h2><a id="2Tomcat_17"></a>2、配置Tomcat用户角色权限</h2>
+<p>默认情况下Tomcat是没有配置用户角色权限的<br>
+<img src="https://img-blog.csdnimg.cn/2b7479362b574a96b632797621899e29.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/dbf2f87ff287441da547574b60d1609a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+但是，后续Jenkins部署项目到Tomcat服务器，需要用到Tomcat的用户，所以修改tomcat以下配置，添加用户及权限</p>
+<pre><code class="prism language-powershell">vi <span class="token operator">/</span>opt<span class="token operator">/</span>tomcat<span class="token operator">/</span>conf<span class="token operator">/</span>tomcat<span class="token operator">-</span>users<span class="token punctuation">.</span>xml
+</code></pre>
+<pre><code class="prism language-powershell">&lt;tomcat<span class="token operator">-</span>users&gt;
+   &lt;role rolename=<span class="token string">"tomcat"</span><span class="token operator">/</span>&gt;
+   &lt;role rolename=<span class="token string">"role1"</span><span class="token operator">/</span>&gt;
+   &lt;role rolename=<span class="token string">"manager-script"</span><span class="token operator">/</span>&gt;
+   &lt;role rolename=<span class="token string">"manager-gui"</span><span class="token operator">/</span>&gt;
+   &lt;role rolename=<span class="token string">"manager-status"</span><span class="token operator">/</span>&gt;
+   &lt;role rolename=<span class="token string">"admin-gui"</span><span class="token operator">/</span>&gt;
+   &lt;role rolename=<span class="token string">"admin-script"</span><span class="token operator">/</span>&gt;
+   &lt;user username=<span class="token string">"tomcat"</span> password=<span class="token string">"tomcat"</span> roles=<span class="token string">"manager-gui,managerscript,tomcat,admin-gui,admin-script"</span><span class="token operator">/</span>&gt;
+&lt;<span class="token operator">/</span>tomcat<span class="token operator">-</span>users&gt;
+
+</code></pre>
+<p>用户和密码都是：tomcat<br>
+注意：为了能够刚才配置的用户登录到Tomcat，还需要修改以下配置</p>
+<pre><code class="prism language-powershell">vi <span class="token operator">/</span>opt<span class="token operator">/</span>tomcat<span class="token operator">/</span>webapps<span class="token operator">/</span>manager<span class="token operator">/</span>META<span class="token operator">-</span>INF<span class="token operator">/</span>context<span class="token punctuation">.</span>xml
+
+&lt;<span class="token operator">!</span>-<span class="token operator">-</span>
+&lt;Valve className=<span class="token string">"org.apache.catalina.valves.RemoteAddrValve"</span>
+allow=<span class="token string">"127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1"</span> <span class="token operator">/</span>&gt;
+<span class="token operator">--</span>&gt;
+
+把上面这行注释掉即可！重启Tomcat
+
+<span class="token operator">/</span>opt<span class="token operator">/</span>tomcat<span class="token operator">/</span>bin<span class="token operator">/</span>shutdown<span class="token punctuation">.</span>sh 停止
+<span class="token operator">/</span>opt<span class="token operator">/</span>tomcat<span class="token operator">/</span>bin<span class="token operator">/</span>startup<span class="token punctuation">.</span>sh 启动
+
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/e6d4768d68ab4418b7497c1b6c467f45.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/2225035f582b4ce99e0bc1ebb362829a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAeGlhb190ZW5nXw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
+</div>
+</body>
+
+</html>
