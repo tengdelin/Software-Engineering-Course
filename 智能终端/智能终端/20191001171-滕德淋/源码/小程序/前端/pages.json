@@ -1,0 +1,116 @@
+{
+	"pages": [{
+			// 首页
+			"path": "pages/index/index"
+		},
+		{
+			// 失物招领
+			"path": "pages/finditems/finditems",
+			"style": {
+				"navigationBarTitleText": "失物招领"
+			}
+		},
+		{
+			// 学校生活
+			"path": "pages/schoollive/schoollive",
+			"style": {
+				"navigationBarTitleText": "校园生活"
+			}
+		},
+		{
+			// 项目信息
+			"path": "pages/contact/contact",
+			"style": {
+				"navigationBarTitleText": "项目介绍"
+			}
+		},
+		{
+			// 二手商城
+			"path": "pages/goods/goods",
+			"style": {
+				"navigationBarTitleText": "校园商城",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			// 流浪猫
+			"path": "pages/cat/cat",
+			"style": {
+				"navigationBarTitleText": "流浪猫"
+			}
+		},
+		{
+			// 校园图片
+			"path": "pages/schoolimg/schoolimg",
+			"style": {
+				"navigationBarTitleText": "校园图片"
+			}
+		},
+		{
+			// 校园视频
+			"path": "pages/videos/videos",
+			"style": {
+				"navigationBarTitleText": "校园电视台"
+			}
+		},
+		{
+			// 失物招领详细信息
+			"path": "pages/items-detail/items-detail",
+			"style": {
+				"navigationBarTitleText": "失物详情"
+			}
+		},
+		{
+			// 商品详细信息
+			"path": "pages/goods-detail/goods-detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
+		}
+	    ,{
+            "path" : "pages/cat-detail/cat-detail/cat-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "地大空间",
+		"navigationBarBackgroundColor": "#00aaff",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#007AFF",
+		"borderStyle": "white",
+		"list": [{
+				"text": "首页",
+				"iconPath": "static/tabar/index0.png",
+				"selectedIconPath": "static/tabar/index.png",
+				"pagePath": "pages/index/index"
+			},
+			{
+				"text": "失物招领",
+				"iconPath": "static/tabar/swzl0.png",
+				"selectedIconPath": "static/tabar/swzl.png",
+				"pagePath": "pages/finditems/finditems"
+			},
+			{
+				"text": "校园生活",
+				"iconPath": "static/tabar/schoollive0.png",
+				"selectedIconPath": "static/tabar/schoollive.png",
+				"pagePath": "pages/schoollive/schoollive"
+			},
+			{
+				"text": "项目介绍",
+				"iconPath": "static/tabar/info0.png",
+				"selectedIconPath": "static/tabar/info.png",
+				"pagePath": "pages/contact/contact"
+			}
+		]
+	}
+}

@@ -1,1 +1,3 @@
-文档
+该系统使用前后端分离，通信使用http+axios进行
+前端使用vue+element-ui进行渲染
+后端使用springboot+mybatis-plus进行数据处理
