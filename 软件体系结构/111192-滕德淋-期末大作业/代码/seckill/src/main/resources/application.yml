@@ -1,0 +1,110 @@
+spring:
+  profiles:
+    active: dev
+  #静态资源处理
+  resources:
+    #启动默认静态资源处理，默认启用
+    add-mappings: true
+    cache:
+      cachecontrol:
+        #缓存相应时间，单位秒
+        max-age: 3600
+    chain:
+      #资源链启动缓存，默认启动
+      cache: true
+      #启用资源链，默认禁用
+      enabled: true
+      #启用压缩资源(gzip,brotli)解析，默认禁用
+      compressed: true
+      #启用h5应用缓存，默认禁用
+      html-application-cache: true
+    static-locations: classpath:/static/
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: seckill
+    password: 123456
+    url: jdbc:mysql://47.103.142.24:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+  # redis配置
+  redis:
+    #服务器地址
+    host: 47.92.139.79
+    #端口
+    port: 6379
+    #数据库
+    database: 0
+    #超时时间
+    timeout: 10000ms
+    #密码
+    password:
+    lettuce:
+      pool:
+        #最大连接数，默认8
+        max-active: 8
+        #最大连接阻塞等待时间，默认-1
+        max-wait: 10000ms
+        #最大空闲连接，默认8
+        max-idle: 200
+        #最小空闲连接，默认0
+        min-idle: 5
+  # RabbitMQ
+  rabbitmq:
+    # 服务器
+    host: 47.92.139.79
+    #用户名
+    username: admin
+    #密码
+    password: admin
+    # 虚拟主机
+    virtual-host: /
+    #端口
+    port: 5672
+    listener:
+      simple:
+        #消费者最小数量
+        concurrency: 10
+        #消费者最大数量
+        max-concurrency: 10
+        #限制消费者每次只处理一条消息，处理完再继续下一条消息
+        prefetch: 1
+        #启动时是否默认启动容器，默认true
+        auto-startup: true
+        #被拒绝时重新进入队列
+        default-requeue-rejected: true
+    template:
+      retry:
+        #发布重试，默认false
+        enabled: true
+        #重试时间，默认1000ms
+        initial-interval: 1000ms
+        #重试最大次数，默认3次
+        max-attempts: 3
+        #重试最大间隔时间，默认10000ms
+        max-interval: 10000ms
+        #重试的间隔乘数。比如配2.0，第一次就等10s，第二次就等20s，第三次就等40s
+        multiplier: 1
+
+mybatis-plus:
+  configuration:
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapper-locations: classpath*:/mapper/*Mapper.xml
+    # 配置MyBatis数据返回类型别名(默认别名是类名)
+    type-aliases-package: cool.tdl.seckill.entity
